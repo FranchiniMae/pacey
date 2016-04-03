@@ -1,10 +1,31 @@
 var app = angular.module('paceyApp', ['ui.router']);
 
-app.factory('posts', [function() {
+app.factory('goals', [function() {
 	var o = {
 		goals: []
 	};
 	return o;
+}]);
+
+app.config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	'$locationProvider',
+	function ($stateProvider, $urlRouterProvider, $locationProvider){
+
+		$stateProvider
+			.state('home', {
+				url: '/home',
+				templateUrl: 'templates/home.html',
+				controller: 'MainCtrl'
+			});
+
+		$urlRouterProvider.otherwise('home');
+
+	  $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
 }]);
 
 app.controller('MainCtrl', [
@@ -30,16 +51,4 @@ function($scope, goals){
   };
 }]);
 
-app.config([
-	'$stateProvider',
-	'$urlRouterProvider',
-	function ($stateProvider, $urlRouterProvider){
-		$stateProvider
-			.state('home', {
-				url: '/home',
-				templateUrl: '/home.html',
-				controller: 'MainCtrl'
-			});
-		$urlRouterProvider.otherwise('home');
-}]);
 
