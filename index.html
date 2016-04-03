@@ -19,12 +19,13 @@
           <ui-view></ui-view>
         </div>
       </div>
-<!--       <script type="text/ng-template" id="/home.html">
+      <script type="text/ng-template" id="/home.html">
         <div class="page-header">
-            <h3>Pacey</h3>
+          <h3>Pacey</h3>
         </div>
         <div ng-repeat="goal in goals">
-            {{goal.title}} - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
+            <a href="#/goals/{{$index}}">
+            {{goal.title}}</a> - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
         </div>
           <form ng-submit="addGoal()">
             <input class="form-group" type="text" ng-model="title"></input>
@@ -32,6 +33,16 @@
             <button type="submit" class="btn btn-default">Goal</button>
           </form>
 
-    </script> -->
+    </script>
+
+    <script type="text/ng-template" id="/goals.html">
+      <div class="page-header">
+      <h3>{{goal.title}}</h3>
+      </div>
+      
+      <div ng-repeat="task in goal.tasks">
+        {{task.description}}
+      </div>
+    </script>
   </body>
 </html>

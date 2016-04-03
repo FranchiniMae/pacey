@@ -16,16 +16,21 @@ app.config([
 		$stateProvider
 			.state('home', {
 				url: '/home',
-				templateUrl: 'templates/home.html',
+				templateUrl: '/home.html',
 				controller: 'MainCtrl'
+			})
+			.state('goals', {
+				url: '/goals/{id}',
+				templateUrl: '/goals.html',
+				controller: 'GoalsCtrl'
 			});
 
 		$urlRouterProvider.otherwise('home');
 
-	  $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
+	  // $locationProvider.html5Mode({
+   //    enabled: true,
+   //    requireBase: false
+   //  });
 }]);
 
 app.controller('MainCtrl', [
@@ -33,22 +38,28 @@ app.controller('MainCtrl', [
 'goals',
 function($scope, goals){
 	$scope.goals = goals.goals;
-  $scope.goals = [
-  	{title: 'goal 1'},
-  	{title: 'goal 2'},
-  	{title: 'goal 3'},
-  	{title: 'goal 4'},
-  	{title: 'goal 5'}
-  ];
   $scope.addGoal = function() {
   	if(!$scope.title || $scope.title === '') { return; }
   	$scope.goals.push({
   		title: $scope.title,
   		goalDate: $scope.goalDate,
+  		tasks: [
+  			{description: "first task"},
+  			{description: "second task"}
+  		]
   	});
   	$scope.title = '';
   	$scope.goalDate = '';
   };
 }]);
+
+app.controller('GoalsCtrl', [
+	'$scope',
+	'$stateParams',
+	'goals',
+	function($scope, $stateParams, goals){
+		$scope.goal = goals.goals[$stateParams.id];
+	}
+]);
 
 

@@ -2,7 +2,8 @@
     <h3>Pacey</h3>
 </div>
 <div ng-repeat="goal in goals">
-    {{goal.title}} - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
+    <a href="#/goals/{{$index}}">
+    {{goal.title}}</a> - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
 </div>
   <form ng-submit="addGoal()">
     <input class="form-group" type="text" ng-model="title"></input>
