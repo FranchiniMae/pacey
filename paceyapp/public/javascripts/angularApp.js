@@ -41,6 +41,13 @@ app.factory('goals', ['$http', function($http) {
 			angular.copy(data, o.goals);
 		});
 	};
+
+	o.create = function(goal) {
+		return $http.post('/goals', goal).success(function (data){
+			o.goals.push(data);
+		});
+	};
+
 	return o;
 }]);
 
@@ -53,14 +60,18 @@ function($scope, goals){
 	
   $scope.addGoal = function() {
   	if(!$scope.title || $scope.title === '') { return; }
-  	$scope.goals.push({
+  	goals.create({
   		title: $scope.title,
   		goalDate: $scope.goalDate,
-  		tasks: [
-  			{description: "first task"},
-  			{description: "second task"}
-  		]
   	});
+
+  		// title: $scope.title,
+  		// goalDate: $scope.goalDate,
+  		// tasks: [
+  		// 	{description: "first task"},
+  		// 	{description: "second task"}
+  		// ]
+  	// });
   	$scope.title = '';
   	$scope.goalDate = '';
   };
