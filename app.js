@@ -13,7 +13,11 @@ function($scope){
   ];
   $scope.addGoal = function() {
   	if(!$scope.title || $scope.title === '') { return; }
-  	$scope.goals.push({title: $scope.title});
+  	$scope.goals.push({
+  		title: $scope.title,
+  		goalDate: $scope.goalDate,
+  	});
   	$scope.title = '';
+  	$scope.goalDate = '';
   };
 }]);
