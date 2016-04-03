@@ -16,12 +16,12 @@ app.config([
 		$stateProvider
 			.state('home', {
 				url: '/home',
-				templateUrl: '/home.html',
+				templateUrl: 'templates/home.html',
 				controller: 'MainCtrl'
 			})
 			.state('goals', {
 				url: '/goals/{id}',
-				templateUrl: '/goals.html',
+				templateUrl: 'templates/goals.html',
 				controller: 'GoalsCtrl'
 			});
 
