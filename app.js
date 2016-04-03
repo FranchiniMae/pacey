@@ -1,9 +1,17 @@
-var app = angular.module('paceyApp', []);
+var app = angular.module('paceyApp', ['ui.router']);
+
+app.factory('posts', [function() {
+	var o = {
+		goals: []
+	};
+	return o;
+}]);
 
 app.controller('MainCtrl', [
 '$scope',
-function($scope){
-  $scope.test = 'Hello world!';
+'goals',
+function($scope, goals){
+	$scope.goals = goals.goals;
   $scope.goals = [
   	{title: 'goal 1'},
   	{title: 'goal 2'},
@@ -21,3 +29,17 @@ function($scope){
   	$scope.goalDate = '';
   };
 }]);
+
+app.config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	function ($stateProvider, $urlRouterProvider){
+		$stateProvider
+			.state('home', {
+				url: '/home',
+				templateUrl: '/home.html',
+				controller: 'MainCtrl'
+			});
+		$urlRouterProvider.otherwise('home');
+}]);
+
