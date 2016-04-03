@@ -38,6 +38,7 @@ app.controller('MainCtrl', [
 'goals',
 function($scope, goals){
 	$scope.goals = goals.goals;
+	
   $scope.addGoal = function() {
   	if(!$scope.title || $scope.title === '') { return; }
   	$scope.goals.push({
@@ -59,6 +60,14 @@ app.controller('GoalsCtrl', [
 	'goals',
 	function($scope, $stateParams, goals){
 		$scope.goal = goals.goals[$stateParams.id];
+
+		$scope.addTask = function() {
+			if ($scope.description === '') { return; }
+			$scope.goal.tasks.push({
+				description: $scope.description
+			});
+			$scope.description = '';
+		};
 	}
 ]);
 
