@@ -1,10 +1,16 @@
 var app = angular.module('paceyApp', ['ui.router']);
 
-app.factory('goals', [function() {
+app.factory('goals', ['$http', function($http) {
 	var o = {
 		goals: []
 	};
 	return o;
+
+	// o.getAll = function() {
+	// 	return $http.get('/goals').success(function(data) {
+	// 		angular.copy(data, o.goals);
+	// 	});
+	// };
 }]);
 
 app.config([
@@ -17,7 +23,12 @@ app.config([
 			.state('home', {
 				url: '/home',
 				templateUrl: '/home.html',
-				controller: 'MainCtrl'
+				controller: 'MainCtrl',
+				// resolve: { 
+				// 	goalPromise: ['goals', function(goals) {
+				// 		return goals.getAll();
+				// 	}]
+				// }
 			})
 			.state('goals', {
 				url: '/goals/{id}',
