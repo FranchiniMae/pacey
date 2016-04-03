@@ -12,7 +12,7 @@ app.config([
 				templateUrl: '/home.html',
 				controller: 'MainCtrl',
 				resolve: { 
-					postPromise: ['goals', function(goals) {
+					goalPromise: ['goals', function(goals) {
 						return goals.getAll();
 					}]
 				}
@@ -20,7 +20,12 @@ app.config([
 			.state('goals', {
 				url: '/goals/{id}',
 				templateUrl: '/goals.html',
-				controller: 'GoalsCtrl'
+				controller: 'GoalsCtrl',
+				resolve: {
+					goal: ['$stateParams', 'goals', function($stateParams, goals) {
+						return goals.get($stateParams.id);
+					}]
+				}
 			});
 
 		$urlRouterProvider.otherwise('home');
@@ -46,6 +51,16 @@ app.factory('goals', ['$http', function($http) {
 		return $http.post('/goals', goal).success(function (data){
 			o.goals.push(data);
 		});
+	};
+
+	o.get = function(id) {
+		return $http.get('/goals/' + id).then(function(res){
+			return res.data;
+		});
+	};
+
+	o.addTask = function(id, task) {
+		return $http.post('/goals/' + id + '/tasks', task);
 	};
 
 	return o;
@@ -79,16 +94,21 @@ function($scope, goals){
 
 app.controller('GoalsCtrl', [
 	'$scope',
-	'$stateParams',
 	'goals',
-	function($scope, $stateParams, goals){
-		$scope.goal = goals.goals[$stateParams.id];
+	'goal',
+	function($scope, goals, goal){
+		$scope.goal = goal;
 
 		$scope.addTask = function() {
 			if ($scope.description === '') { return; }
-			$scope.goal.tasks.push({
-				description: $scope.description
+			goals.addTask(goal._id, {
+				description: $scope.description,
+			}).success(function (task) {
+				$scope.goal.tasks.push(task);
 			});
+			// $scope.goal.tasks.push({
+			// 	description: $scope.description
+			// });
 			$scope.description = '';
 		};
 	}
