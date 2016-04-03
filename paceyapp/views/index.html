@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pacey</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+     <!-- jquery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+
+    <script src="/javascripts/angularApp.js"></script>
+  </head>
+
+  <body ng-app="paceyApp">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <ui-view></ui-view>
+        </div>
+      </div>
+      <script type="text/ng-template" id="/home.html">
+      	<div class="page-header">
+    		<h3>Pacey</h3>
+				</div>
+				<div ng-repeat="goal in goals">
+    			<a href="#/goals/{{$index}}">
+    			{{goal.title}}</a> - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
+				</div>
+  			<form ng-submit="addGoal()">
+    			<input class="form-group" type="text" ng-model="title"></input>
+    			<input class="form-group" type="date" ng-model="goalDate"></input>
+    			<button type="submit" class="btn btn-default">Add Goal</button>
+  			</form>
+      </script>
+
+  </body>
+</html>
