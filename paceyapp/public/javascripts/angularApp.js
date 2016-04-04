@@ -18,7 +18,7 @@ app.config([
 				}
 			})
 			.state('goals', {
-				url: '/goals/{id}',
+				url: '/goals/:id',
 				templateUrl: '/goals.html',
 				controller: 'GoalsCtrl',
 				resolve: {
@@ -30,10 +30,10 @@ app.config([
 
 		$urlRouterProvider.otherwise('home');
 
-	  // $locationProvider.html5Mode({
-   //    enabled: true,
-   //    requireBase: false
-   //  });
+	  $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
 }]);
 
 app.factory('goals', ['$http', function($http) {

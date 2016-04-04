@@ -24,7 +24,7 @@
     		<h3>Pacey</h3>
 				</div>
 				<div ng-repeat="goal in goals">
-    			<a href="#/goals/{{goal._id}}">
+    			<a href="/goals/{{goal._id}}">
     			{{goal.title}}</a> - {{ goal.goalDate | date: 'MMMM dd, yyyy'}}
 				</div>
   			<form ng-submit="addGoal()">
